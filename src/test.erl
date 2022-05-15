@@ -31,7 +31,8 @@ fill_events_static() ->
 
 % создание и удаление
 fill_events_del() ->
-    input:add("1", 1, dinamic, 5),
+	input:add("1", 1, dinamic, 8),
+    input:add("1", 2, dinamic, 5),
     input:delete("1", 1).
 
 %% ====================================================================

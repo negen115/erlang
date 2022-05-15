@@ -6,7 +6,7 @@
 
 % our API
 -export([start_link/0, stop_link/0]).
--export([add/4, send_next/0, state/0, delete/1, stop/0]).
+-export([add/4, send_next/0, delete/2, stop/0]).
 
 % our handlers
 -export([init/1, handle_call/3, handle_cast/2, handle_info/2,
@@ -54,15 +54,10 @@ add(TaskId, ProcId, Type, Time) ->
 send_next() ->
 	gen_server:cast(?MODULE, {next}).
 
-delete(Key) ->
+delete(TaskId, ProcId) ->
+	Key = list_to_atom(integer_to_list(ProcId) ++ "-" ++ TaskId),
     gen_server:cast(?MODULE, {delete, Key}).
 
-% state/0 
-% This function will return the current state (here the map who contain all 
-% indexed values), we need a synchronous call.
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-state() ->
-    gen_server:call(?MODULE, {get_state}).
 
 % stop/0
 % This function stop cache server process.
